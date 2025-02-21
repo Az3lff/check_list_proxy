@@ -1,0 +1,55 @@
+// protoc -I api/grpc/task api/grpc/task/task.proto --go_out=./internal/delivery/grpc/task --go_opt=paths=source_relative --go-grpc_out=./internal/delivery/grpc/task --go-grpc_opt=paths=source_relative
+
+syntax = "proto3";
+package task;
+
+option go_package = "/task";
+
+service Task {
+  rpc CreateTask(CreateTaskRequest) returns(CreateTaskResponse) {}
+  rpc GetList(GetListRequest) returns(GetListResponse) {}
+  rpc DeleteTask(DeleteTaskRequest) returns(DeleteTaskResponse) {}
+  rpc DoneTask(DoneTaskRequest) returns(DoneTaskResponse) {}
+}
+
+message CreateTaskRequest {
+  int64 UserID = 1;
+  string Title = 2;
+  string Description = 3;
+}
+
+message CreateTaskResponse {
+  int64 TaskID = 1;
+}
+
+message GetListRequest {
+  int64 UserID = 1;
+}
+
+message GetListResponse {
+  repeated Task Tasks = 1;
+
+  message Task {
+    int64 TaskID = 1;
+    string Title = 2;
+    string Description = 3;
+  }
+}
+
+message DeleteTaskRequest {
+  int64 UserID = 1;
+  int64 TaskID = 2;
+}
+
+message DeleteTaskResponse {
+  int64 TaskID = 1;
+}
+
+message DoneTaskRequest {
+  int64 UserID = 1;
+  int64 TaskID = 2;
+}
+
+message DoneTaskResponse {
+  int64 TaskID = 1;
+}

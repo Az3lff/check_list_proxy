@@ -1,0 +1,7 @@
+http_server:
+  response_timeout: 4s
+
+grpc_client:
+  address: "127.0.0.1:8081"
+  timeout: 2s
+  retry_count: 2
